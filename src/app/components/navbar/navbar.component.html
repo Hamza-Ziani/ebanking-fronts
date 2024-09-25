@@ -10,24 +10,22 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  routerLink="/accounts">Accounts</a>
+          <a class="nav-link"  [routerLink]="['/dashboard/accounts']">Accounts</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="/customers" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" [routerLink]="['/dashboard/customers']" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Customers
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item"  routerLink="/customers" >Search customers</a></li>
-            <li><a class="dropdown-item" routerLink="/new-customer" >New customer</a></li>
+            <li><a class="dropdown-item"  [routerLink]="['/dashboard/customers']" >Search customers</a></li>
+            <li *ngIf="this.authService.roles.includes('ADMIN')"><a  class="dropdown-item"  [routerLink]="['/dashboard/new-customer']" >New customer</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" *ngIf="this.authService.isAuthenticate ==true" >
+        <label class="form-control me-2" >{{authService.username}}</label>
+        <button class="btn btn-outline-success" type="submit" (click)="logout()">Logout</button>
       </form>
     </div>
   </div>
